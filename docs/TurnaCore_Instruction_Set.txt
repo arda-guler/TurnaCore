@@ -1,0 +1,12 @@
+TurnaCore Instruction Set
+= = = = = = = = = = = = =
+ADD: Adds value in Register 2 onto Register 1
+SUB: Subtracts value in Register 2 from Register 1
+MR1: Switches CPU mode to "Modify Register 1"
+MR2: Switches CPU mode to "Modify Register 2"
+JMP: Switches CPU mode to "Jump"
+JG: Switches CPU mode to "Jump" if Register 1 is greater than Register 2; else, switches to a dummy CPU mode
+JL: Switches CPU mode to "Jump" if Register 1 is less than Register 2; else, switches to a dummy CPU mode
+JE: Switches CPU mode to "Jump" if Register 1 is equal to Register 2; else, switches to a dummy CPU mode
+WRITE: Copies Register 1 value to Register 5
+RECALL: Copies Register 5 value to Register 1
