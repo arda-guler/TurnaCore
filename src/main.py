@@ -71,6 +71,8 @@ def main():
     print(mem)
 
     window = tk.Tk()
+    window.title("TurnaCore")
+    window.iconphoto(False, tk.PhotoImage(file="../icon/tc_icon.png"))
     canvas = tk.Canvas(window, height=480, width=640, bg="black")
     canvas.pack()
 
