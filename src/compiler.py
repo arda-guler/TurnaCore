@@ -1,3 +1,5 @@
+from consts import *
+
 def compile_program(input_file, output_file="output.cis"):
     infile = open(input_file, "r")
     inlines = [line.rstrip() for line in infile.readlines() if not line.startswith(';')]
@@ -13,25 +15,31 @@ def compile_program(input_file, output_file="output.cis"):
     outlines = []
     for line in inlines_sanitized:
         if line.lower() == "add":
-            outlines.append("255")
+            outlines.append(str(int(cpu_add)))
         elif line.lower() == "sub":
-            outlines.append("254")
+            outlines.append(str(int(cpu_sub)))
         elif line.lower() == "mr1":
-            outlines.append("253")
+            outlines.append(str(int(cpu_mod_reg1)))
         elif line.lower() == "mr2":
-            outlines.append("252")
+            outlines.append(str(int(cpu_mod_reg2)))
         elif line.lower() == "jmp":
-            outlines.append("251")
+            outlines.append(str(int(cpu_jmp)))
         elif line.lower() == "jg":
-            outlines.append("250")
+            outlines.append(str(int(cpu_jg)))
         elif line.lower() == "jl":
-            outlines.append("249")
+            outlines.append(str(int(cpu_jl)))
         elif line.lower() == "je":
-            outlines.append("248")
+            outlines.append(str(int(cpu_je)))
         elif line.lower() == "write":
-            outlines.append("247")
+            outlines.append(str(int(cpu_write)))
         elif line.lower() == "recall":
-            outlines.append("246")
+            outlines.append(str(int(cpu_recall)))
+        elif line.lower() == "memw":
+            outlines.append(str(int(cpu_memwrite)))
+        elif line.lower() == "memr":
+            outlines.append(str(int(cpu_memread)))
+        elif line.lower() == "halt":
+            outlines.append(str(int(cpu_halt)))
         elif line.lower() == "null":
             outlines.append("0")
         else:

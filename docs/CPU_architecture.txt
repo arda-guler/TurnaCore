@@ -1,30 +1,32 @@
-TurnaCore CPU Architecture
-= = = = = = = = = = = = = =
-
-TurnaCore is under development. The following information is valid
-for the current version.
+TurnaCore Architecture
+= = = = = = = = = = = =
 
 The TurnaCore CPU has 5 registers, numbered 1, 2, 3, 4 and 5. Each
-register can hold a number between 00000000 and 11111111. (These
-values correspond to 0 and 255 in decimal.)
+register can hold a 16 bit number.
 
-The TurnaCore CPU can execute programs on the disk, but it can not 
-write to the disk.
+A TurnaCore machine can load a single program into memory (RAM) and
+the CPU can read from and write to the memory. Programs loaded into
+the RAM can be altered at runtime - of course this does not affect
+the source from which the program is loaded. To restore the original
+version of a program, simply stopping the machine and reloading it
+is enough. However, this means that all the work made at runtime 
+up to that point will be reset.
 
 Register 1 and 2 are general registers that can be directly written
 on. Addition and subtraction operations act on Register 1.
 
 Register 3 is the operation mode register. It tells the CPU what
-to do with the upcoming numerical value to be read.
+to do with the upcoming data to be read.
 
-Register 4 is the address register. It keeps track of the address
-from which the instructions/data are being read. It increments 
-automatically and keeps reading the loaded program from first
-instruction to the last, unless a jump command is executed. A jump
-command allows the value of Register 4 to be controlled directly,
-which makes loops, if-else conditionals and goto instructions 
-possible.
+Register 4 is the memory address register. It keeps track of the 
+address from which the instructions/data are being read. It 
+increments  automatically and keeps reading the loaded program from 
+first instruction to the last, unless a jump command is executed. 
+A jump command allows the value of Register 4 to be controlled 
+directly, which makes loops, if-else conditionals and goto 
+instructions possible.
 
-Register 5 acts as a short term memory register. The value of
-Register 1 can be copied into Register 5, so that the value stored 
-in Register 5 can be copied into Register 1.
+Register 5 acts as the output register, as well as a short term 
+memory register. The value of Register 1 can be copied into 
+Register 5, so that the value stored in Register 5 can be copied 
+back into Register 1 later on.

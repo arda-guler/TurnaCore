@@ -1,4 +1,5 @@
 from binary import *
+from consts import *
 
 class Register:
     def __init__(self, value):
@@ -17,6 +18,7 @@ class CPU:
     def __init__(self, instructions, registers):
         self.instructions = instructions
         self.registers = registers
+        self.run = True
 
     def __repr__(self):
         output = "= = = = CPU = = = =\n"
@@ -32,7 +34,7 @@ class CPU:
         self.registers[0].set_value(self.registers[0].get_value() + self.registers[1].get_value())
 
     def subtract(self):
-        self.registers[0].set_value(self.registers[0].get_value() + self.registers[1].get_value())
+        self.registers[0].set_value(self.registers[0].get_value() - self.registers[1].get_value())
 
     def assign(self, value):
         if self.registers[2].get_value() == Binary(1):
@@ -47,7 +49,7 @@ class CPU:
         else:
             pass
 
-    def perform_instruction(self, instruction):
+    def perform_instruction(self, instruction, mem):
         if instruction == self.instructions["add"]:
             self.add()
 
@@ -87,15 +89,28 @@ class CPU:
             else:
                 self.registers[2].set_value(Binary(0))
 
+        elif instruction == self.instructions["memwrite"]:
+            address = self.registers[1].get_value()
+            value = self.registers[0].get_value()
+            mem.write_to_memory(address, value)
+
+        elif instruction == self.instructions["memread"]:
+            address = self.registers[1].get_value()
+            self.registers[0].set_value(mem.read_from_memory(address))
+
+        elif instruction == self.instructions["halt"]:
+            self.run = False
+
         else:
             self.assign(instruction)
 
-    def read_instruction(self, program):
+    def read_instruction(self, mem):
         address = self.registers[3].get_value()
-        new_instruction = program.data[int(address)]
+        new_instruction = mem.data[int(address)]
         return new_instruction
 
-    def step(self, program):
-        instruction = self.read_instruction(program)
-        self.perform_instruction(instruction)
-        self.registers[3].incr()
+    def step(self, mem):
+        if self.run:
+            instruction = self.read_instruction(mem)
+            self.perform_instruction(instruction, mem)
+            self.registers[3].incr()

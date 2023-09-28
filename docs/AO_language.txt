@@ -41,6 +41,11 @@ MR1 1
 MR2 5
 ; Voila!
 
+"NULL" is a special word in AO language, which stands for the number 0. There is no difference between using
+NULL or 0.
+
+'MR1 NULL' is equivalent to 'MR1 0'
+
 AO files are compiled into CIS (compiled instruction sequence) files. These are the files which the CPU reads.
 
 See TurnaCore Instruction Set for a list of all instructions.

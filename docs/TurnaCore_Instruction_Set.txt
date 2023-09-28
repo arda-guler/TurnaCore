@@ -10,3 +10,6 @@ JL: Switches CPU mode to "Jump" if Register 1 is less than Register 2; else, swi
 JE: Switches CPU mode to "Jump" if Register 1 is equal to Register 2; else, switches to a dummy CPU mode
 WRITE: Copies Register 1 value to Register 5
 RECALL: Copies Register 5 value to Register 1
+MEMW: Writes the value in Register 1 onto the memory address determined by Register 2.
+MEMR: Reads the value at the memory address determined by Register 2 into Register 1.
+HALT: Stops the CPU from performing any more instructions.

@@ -1,0 +1,40 @@
+; MULTIPLICATION.AO
+; Author: arda-guler
+;
+; Multiplying 13 and 27.
+;
+; Initialize a loop counter using register 5
+MR1 14
+WRITE
+; 3
+;
+; Initialize a variable at memory location 2000
+MR1 NULL
+MR2 2000
+MEMW
+; 8
+;
+; - - - LOOP - - -
+; read value from memory
+MR2 2000
+MEMR
+; add 27
+MR2 27
+ADD
+; save updated value to memory
+MR2 2000
+MEMW
+; decrease counter
+RECALL
+MR2 1
+SUB
+WRITE
+MR2 1
+JG 9
+;
+; write result to register 5
+MR2 2000
+MEMR
+WRITE
+;
+HALT
