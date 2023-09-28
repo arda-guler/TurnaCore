@@ -4,9 +4,11 @@
 
 *A TurnaCore machine multiplying 13 and 27.*
 
-TurnaCore is an imaginary 16-bit CPU with a custom architecture, created mainly for creating low-level programming challenges. [Read more about the architecture here](https://github.com/arda-guler/TurnaCore/blob/master/docs/CPU_architecture.txt) or below.
+TurnaCore is an imaginary 16-bit CPU with a custom architecture, created mainly for creating low-level programming challenges. [Read more about the architecture here](https://github.com/arda-guler/TurnaCore/blob/master/docs/CPU_architecture.txt).
 
-The AO language is a custom assembly language to write programs for TurnaCore machines. [Read more about it here](https://github.com/arda-guler/TurnaCore/blob/master/docs/AO_language.txt) or below.
+The AO language is a custom assembly language to write programs for TurnaCore machines. [Read more about it here](https://github.com/arda-guler/TurnaCore/blob/master/docs/AO_language.txt).
+
+Don't forget to read the docs!
 
 ## Use
 
