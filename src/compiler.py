@@ -2,7 +2,7 @@ from consts import *
 
 def compile_program(input_file, output_file="output.cis"):
     infile = open(input_file, "r")
-    inlines = [line.rstrip() for line in infile.readlines() if not line.startswith(';')]
+    inlines = [line.rstrip() for line in infile.readlines() if ((not line.startswith(';')) and (not line == '\n'))]
 
     inlines_sanitized = []
     for element in inlines:
