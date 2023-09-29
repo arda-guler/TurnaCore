@@ -1,0 +1,60 @@
+; DIVISION.AO
+; Author: arda-guler
+;
+; Dividing 100 by 15, saving the quotient and the remainder on memory
+; Also displays quotient on display register (register 5)
+
+; Initialize the counter variable at address 2000
+MR2 2000
+MR1 1
+MEMW
+
+; load the dividend and divisor
+MR1 100
+MR2 15
+
+; - - - LOOP - - -
+; subtract divisor
+SUB
+
+; save subtracted dividend in R5
+WRITE
+
+; increase counter
+MR2 2000
+MEMR
+MR2 1
+ADD
+MR2 2000
+MEMW
+
+; get dividend into R1 again to continue
+RECALL
+
+; if dividend is still larger than divisor, loop
+MR2 15
+JG 8
+
+; - - - END LOOP - - -
+; if the int is divisible exactly, we need to increment the counter one more before halting (26)
+JL 42
+WRITE
+MR2 2000
+MEMR
+MR2 1
+ADD
+MR2 2000
+MEMW
+RECALL
+MR2 15
+SUB
+
+; save remainder at address 2001
+MR2 2001
+MEMW
+
+; display result
+MR2 2000
+MEMR
+WRITE
+HALT
