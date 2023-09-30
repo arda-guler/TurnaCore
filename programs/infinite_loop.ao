@@ -4,7 +4,7 @@
 ; This is an infinite loop example where
 ; we just keep incrementing the same
 ; value.
-;
+
 MR1 NULL
 MR2 1
 ADD

@@ -3,7 +3,7 @@
 ;
 ; This is a simple counter that counts up to 200
 ; Uses the JL (jump if less than) instruction
-;
+
 MR1 200
 MR1 NULL
 MR2 1
