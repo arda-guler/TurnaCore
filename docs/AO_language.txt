@@ -13,10 +13,13 @@ In AO programming language, each "expression" (either an instruction or data) is
 newline characters.
 
 The following is an example AO program:
-MR1
-1
-MR2
-5
+
+	= = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = 
+	MR1
+	1
+	MR2
+	5
+	= = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = 
 
 In this program, MR1 and MR2 are instructions whereas 1 and 5 are data. MR1 tells the CPU to switch to Modify 
 Register 1 mode, and the following data 1 is then used to modify the value of Register 1. Then, the CPU is
@@ -25,8 +28,11 @@ modify the value of Register 2. When this program is executed, Register 1 should
 should hold the value 5.
 
 The same program can be written as follows for better readability:
-MR1 1
-MR2 5
+
+	= = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = 
+	MR1 1
+	MR2 5
+	= = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = 
 
 Do not forget that this is not a function - argument arrangement. 1 is not an argument for the MR1 insturction.
 They are merely two expressions that come after each other.
@@ -34,17 +40,43 @@ They are merely two expressions that come after each other.
 You can use the semicolon (;) as the first character in a line to denote a comment line. 
 
 Adding comments to the example program above can be done as follows:
-; This program sets the value of Register 1 to 1 and Register 2 to 5.
-; Let's set Register 1 first.
-MR1 1
-; Let's set Register 2 next.
-MR2 5
-; Voila!
+
+	= = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = 
+	; This program sets the value of Register 1 to 1 and Register 2 to 5.
+	; Let's set Register 1 first.
+	MR1 1
+	; Let's set Register 2 next.
+	MR2 5
+	; Voila!
+	= = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =
 
 "NULL" is a special word in AO language, which stands for the number 0. There is no difference between using
 NULL or 0.
 
-'MR1 NULL' is equivalent to 'MR1 0'
+	= = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = 
+	MR1 NULL
+	= = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = 
+
+is equivalent to 
+
+	= = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = 
+	MR1 0
+	= = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =
+
+As you modify a file that includes any of the jump instructions (JMP, JL, JG etc.), you may want to use labels
+so that you won't have to count the number of statements by yourself. A label can be defined by putting (:) after
+the end of the label name, as such:
+
+	= = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = 
+	this_is_a_label:
+	= = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =
+
+Later, when you want to jump to the label, you can simply do the following:
+
+	= = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = 
+	JMP this_is_a_label
+	= = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =
+
 
 AO files are compiled into CIS (compiled instruction sequence) files. These are the files which the CPU reads.
 
