@@ -6,9 +6,11 @@
 
 MR1 200
 MR1 NULL
+
+loop:
 MR2 1
 ADD
 MR2 200
-JL 5
+JL loop
 WRITE
 HALT

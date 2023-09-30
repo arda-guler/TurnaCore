@@ -12,7 +12,7 @@ MR1 NULL
 MR2 2000
 MEMW
 
-; - - - LOOP - - -
+loop:
 ; read value from memory
 MR2 2000
 MEMR
@@ -28,7 +28,7 @@ MR2 1
 SUB
 WRITE
 MR2 1
-JG 9
+JG loop
 
 ; write result to register 5
 MR2 2000

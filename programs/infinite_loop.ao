@@ -7,6 +7,8 @@
 
 MR1 NULL
 MR2 1
+
+loop:
 ADD
 WRITE
-JMP 5
+JMP loop

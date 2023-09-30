@@ -173,7 +173,7 @@ def main():
                 canvas.create_text(20, 30 + i * 30, text="Register" + str(i+1) + ": " + str(cpu.registers[i].get_value()) + " (" + str(int(cpu.registers[i].get_value())) + ")", anchor="w", font=('Arial', 12))
             
             window.update()
-            time.sleep(0.1)
+            time.sleep(0.2)
 
             if int(cpu.registers[3].get_value()) < mem.size and cpu.run:
                 canvas.delete("all") 
@@ -181,5 +181,8 @@ def main():
     print("Done!\n")
     print(cpu)
     print(mem)
+
+    if slow:
+        input("Press Enter to exit.")
 
 main()

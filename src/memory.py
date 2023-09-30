@@ -40,7 +40,7 @@ class Memory:
             self.data[address] = value
             return
         
-        if address > len(self.data) - 1:
+        else:
             padding = address - len(self.data) + 1
             for i in range(padding):
                 self.data.append(NULL)

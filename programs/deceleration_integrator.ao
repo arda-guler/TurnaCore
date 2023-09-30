@@ -1,0 +1,81 @@
+; = = = = = = = = = = = = = = =
+; DECELERATION_INTEGRATOR.AO
+; = = = = = = = = = = = = = = =
+; Author: arda-guler
+; = = = = = = = = = = = = = = =
+; A symplectic Euler integrator to compute the final position 
+; of a decelerating object with given initlai position, speed 
+; and a constant rate of deceleration. 
+; Assumes constant time step of 1. (So I don't need to keep
+; calling the multiplication function every loop.)
+; = = = = = = = = = = = = = = =
+
+JMP start
+
+; - - - - - - - - - -
+; VARIABLES
+; - - - - - - - - - -
+; address 2 - position
+3000
+
+load_vel_into_r2:
+MR2
+
+; this is actually velocity + 100
+; since there are no negative numbers
+; we will use 100 as our zero point
+; address 4 - velocity
+150
+JMP return_update_pos
+
+; - - - - - - - - - -
+; PROGRAM
+; - - - - - - - - - -
+
+start:
+; - - - update velocity
+; read velocity from memory
+MR2 4
+MEMR
+
+; now, load decel rate into R2
+; which is 10
+MR2 10
+
+; update the value of velocity
+SUB
+
+; save it back onto memory
+MR2 4
+MEMW
+
+; check if we are still moving in positive direction
+MR2 100
+JL end_program
+
+; - - - update position
+; load position into R1
+MR2 2
+MEMR
+
+; load velocity onto R2
+JMP load_vel_into_r2
+
+return_update_pos:
+; update the value of position
+ADD
+MR2 100
+SUB
+
+; save it back onto memory
+MR2 2
+MEMW
+JMP start
+
+end_program:
+; write the end position onto display register R5
+MR2 2
+MEMR
+WRITE
+
+HALT

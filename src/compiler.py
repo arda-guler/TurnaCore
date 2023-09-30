@@ -11,10 +11,22 @@ def compile_program(input_file, output_file="output.cis"):
             inlines_sanitized.extend(split_elements)
         else:
             inlines_sanitized.append(element)
+
+    labels = {}
+    statement_pos = 1
+    for line in inlines_sanitized:
+        if line.endswith(":"):
+            labels[line[0:-1]] = str(statement_pos)
+        else:
+            statement_pos += 1
+
+    print(labels)
     
     outlines = []
     for line in inlines_sanitized:
-        if line.lower() == "add":
+        if line.lower() in labels:
+            outlines.append(labels[line.lower()])
+        elif line.lower() == "add":
             outlines.append(str(int(cpu_add)))
         elif line.lower() == "sub":
             outlines.append(str(int(cpu_sub)))
@@ -42,6 +54,8 @@ def compile_program(input_file, output_file="output.cis"):
             outlines.append(str(int(cpu_halt)))
         elif line.lower() == "null":
             outlines.append("0")
+        elif line.endswith(":"):
+            pass
         else:
             outlines.append(line)
 
