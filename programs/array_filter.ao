@@ -1,0 +1,128 @@
+; = = = = = = = = = = = = = = =
+; ARRAY_FILTER.AO
+; = = = = = = = = = = = = = = =
+; Author: arda-guler
+; = = = = = = = = = = = = = = =
+; Filters an array of data so that the elements that are not within
+; the given range are nullified.
+; = = = = = = = = = = = = = = =
+; INPUTS:
+; A 0-terminated array of data below: 
+
+10
+15
+24
+37
+95
+36
+34
+75
+22
+59
+16
+66
+43
+0
+
+; The limits are defined below:
+
+#LOW_LIMIT=20
+#HIGH_LIMIT=50
+; = = = = = = = = = = = = = = =
+; OUTPUTS:
+; The modified array in place of the original one in the same memory addresses
+; = = = = = = = = = = = = = = =
+
+JMP start
+
+load_counter:
+MR2
+; address 17
+0
+JMP return_load1
+
+load_counter2:
+MR2
+; address 21
+0
+JMP return_load2
+
+load_counter3:
+MR2
+; address 25
+0
+JMP return_load3
+
+load_counter4:
+MR2
+; address 29
+0
+JMP return_load4
+
+destroy_low:
+JMP load_counter3
+return_load3:
+MR1 NULL
+MEMW
+JMP return_destroy_low
+
+destroy_high:
+JMP load_counter4
+return_load4:
+MR1 NULL
+MEMW
+JMP return_destroy_high
+
+start:
+; load new value
+JMP load_counter
+return_load1:
+MEMR
+
+MR2 NULL
+JE end
+
+MR2 LOW_LIMIT
+JL destroy_low
+return_destroy_low:
+
+JMP load_counter2
+return_load2:
+MEMR
+MR2 HIGH_LIMIT
+JG destroy_high
+return_destroy_high:
+
+; update counters
+MR2 17
+MEMR
+MR2 1
+ADD
+MR2 17
+MEMW
+
+MR2 21
+MEMR
+MR2 1
+ADD
+MR2 21
+MEMW
+
+MR2 25
+MEMR
+MR2 1
+ADD
+MR2 25
+MEMW
+
+MR2 29
+MEMR
+MR2 1
+ADD
+MR2 29
+MEMW
+
+JMP start
+
+end:
+HALT

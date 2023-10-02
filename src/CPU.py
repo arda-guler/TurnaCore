@@ -106,8 +106,12 @@ class CPU:
 
     def read_instruction(self, mem):
         address = self.registers[3].get_value()
-        new_instruction = mem.data[int(address)]
-        return new_instruction
+        try:
+            new_instruction = mem.data[int(address)]
+            return new_instruction
+        except IndexError:
+            self.run = False
+            return 0
 
     def step(self, mem):
         if self.run:
