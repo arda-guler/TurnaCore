@@ -1,26 +1,42 @@
+; = = = = = = = = =
 ; MULTIPLICATION.AO
+; = = = = = = = = =
 ; Author: arda-guler
-;
-; Multiplying 13 and 27.
+; = = = = = = = = =
+; Multiplying two given numbers.
+; = = = = = = = = =
+; INPUTS:
+
+#NUM_1=13
+#NUM_2=27
+; = = = = = = = = =
+; OUTPUT:
+
+; The result will be given in the display register, Register 5.
+; = = = = = = = = =
+
+#ADR_VAR=2000
 
 ; Initialize a loop counter using register 5
-MR1 14
+MR1 NUM_1
+MR2 1
+ADD
 WRITE
 
-; Initialize a variable at memory location 2000
+; Initialize a variable
 MR1 NULL
-MR2 2000
+MR2 ADR_VAR
 MEMW
 
 loop:
 ; read value from memory
-MR2 2000
+MR2 ADR_VAR
 MEMR
-; add 27
-MR2 27
+; add NUM_2
+MR2 NUM_2
 ADD
 ; save updated value to memory
-MR2 2000
+MR2 ADR_VAR
 MEMW
 ; decrease counter
 RECALL
@@ -31,7 +47,7 @@ MR2 1
 JG loop
 
 ; write result to register 5
-MR2 2000
+MR2 ADR_VAR
 MEMR
 WRITE
 

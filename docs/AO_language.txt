@@ -1,5 +1,5 @@
 AO Programming Language
-= = = = = = = = = = = = =
+- - - - - - - - - - - - - - - - - - - - - - - 
 
 The AO (ASM Operands) language is a very low-level assembly language designed for TurnaCore machines. 
 It matches 1-to-1 to the equivalent compiled binary machine code. Actually, the only thing it makes is to
@@ -76,7 +76,31 @@ Later, when you want to jump to the label, you can simply do the following:
 	= = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = 
 	JMP this_is_a_label
 	= = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =
+	
+Sometimes, you would like to use certain constants in your program. These numbers can be defined in a way similar
+to the C language's #define. The syntax for defining constants is as follows:
 
+	= = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = 
+	#pi=3
+	= = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =
+	
+The # denotes that this expression is a constant definition. 'pi' is the name of your constant and 3 is the value. Please note that
+spaces are NOT allowed. 
+
+After defining a constant, you can use it anywhere in your code by simply typing its name. For example, if you want to 
+see whether pi is larger than the value in Register 2 and jump to a label if so, you can write the following:
+
+	= = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = 
+	MR1 pi
+	JG some_label_defined_somewhere_else
+	= = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =
+	
+Since we defined the value of pi as 3, this is esentially the same thing as writing:
+
+	= = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = 
+	MR1 3
+	JG some_label_defined_somewhere_else
+	= = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =
 
 AO files are compiled into CIS (compiled instruction sequence) files. These are the files which the CPU reads.
 

@@ -16,16 +16,28 @@ def compile_program(input_file, output_file="output.cis"):
     statement_pos = 1
     for line in inlines_sanitized:
         if line.endswith(":"):
-            labels[line[0:-1]] = str(statement_pos)
+            labels[line[0:-1].lower()] = str(statement_pos)
+        elif line.startswith("#"):
+            pass
         else:
             statement_pos += 1
 
-    print(labels)
+    consts = {}
+    for line in inlines_sanitized:
+        if line.lower().startswith("#"):
+            lsplit = line[1:].split("=")
+            consts[lsplit[0].lower()] = str(lsplit[1])
+
+    print(consts)
     
     outlines = []
     for line in inlines_sanitized:
-        if line.lower() in labels:
+        if line.startswith("#"):
+            pass
+        elif line.lower() in labels:
             outlines.append(labels[line.lower()])
+        elif line.lower() in consts:
+            outlines.append(consts[line.lower()])
         elif line.lower() == "add":
             outlines.append(str(int(cpu_add)))
         elif line.lower() == "sub":

@@ -1,9 +1,16 @@
+; = = = = = = = = =
 ; INFINITE_LOOP.AO
+; = = = = = = = = =
 ; Author: arda-guler
-;
+; = = = = = = = = =
 ; This is an infinite loop example where
 ; we just keep incrementing the same
 ; value.
+; = = = = = = = = =
+; INPUTS: NONE
+; = = = = = = = = =
+; OUTPUTS: NONE
+; = = = = = = = = =
 
 MR1 NULL
 MR2 1

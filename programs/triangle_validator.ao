@@ -1,0 +1,150 @@
+; = = = = = = = = =
+; TRIANGLE_VALIDATOR.AO
+; = = = = = = = = =
+; Author: arda-guler
+; = = = = = = = = =
+; Takes the lengths of the edges of a triangle, determines whether it is a valid
+; triangle in an Euclidian space.
+; = = = = = = = = =
+; INPUTS:
+; Edge lengths (sorted from smallest to largest)
+#EDGE_1=15
+#EDGE_2=20
+#EDGE_3=25
+; = = = = = = = = =
+; OUTPUTS:
+; Writes 2 on Register 5 if valid triangle, writes 1 on Register 5 if not.
+; = = = = = = = = =
+
+; Memory adresses to store sums and differences
+#ADDRESS_DIFF_1=2001
+#ADDRESS_DIFF_2=2002
+#ADDRESS_DIFF_3=2003
+
+#ADDRESS_SUM_1=3001
+#ADDRESS_SUM_2=3002
+#ADDRESS_SUM_3=3003
+
+; - - - Determine edge differences
+; First and second edges (remember to put the larger edge on R1)
+MR1 EDGE_2
+MR2 EDGE_1
+
+SUB
+
+MR2 ADDRESS_DIFF_1
+MEMW
+
+; Second and third edges
+MR1 EDGE_3
+MR2 EDGE_2
+
+SUB
+
+MR2 ADDRESS_DIFF_2
+MEMW
+
+; First and third edges
+MR1 EDGE_3
+MR2 EDGE_1
+
+SUB
+
+MR2 ADDRESS_DIFF_3
+MEMW
+
+; - - -Compare all edge lengths to differences. 
+; If any edge length is smaller than a difference,
+; it is not a valid triangle in Euclidian space
+; R1 has diff
+; R2 has edge length
+
+; 1-2 diff vs edge 3
+MR2 ADDRESS_DIFF_1
+MEMR
+MR2 EDGE_3
+JG NOT_A_TRIANGLE
+JE NOT_A_TRIANGLE
+
+; 2-3 diff vs edge 1
+MR2 ADDRESS_DIFF_2
+MEMR
+MR2 EDGE_1
+JG NOT_A_TRIANGLE
+JE NOT_A_TRIANGLE
+
+; 1-3 diff vs edge 2
+MR2 ADDRESS_DIFF_3
+MEMR
+MR2 EDGE_2
+JG NOT_A_TRIANGLE
+JE NOT_A_TRIANGLE
+
+; - - - Determine edge summations
+; First and second edges
+MR1 EDGE_2
+MR2 EDGE_1
+
+ADD
+
+MR2 ADDRESS_SUM_1
+MEMW
+
+; Second and third edges
+MR1 EDGE_3
+MR2 EDGE_2
+
+ADD
+
+MR2 ADDRESS_SUM_2
+MEMW
+
+; First and third edges
+MR1 EDGE_3
+MR2 EDGE_1
+
+ADD
+
+MR2 ADDRESS_SUM_3
+MEMW
+
+; - - - Compare all edge lengths to differences.
+; If any edge length is larger than a sum,
+; it is not a valid triangle in Euclidian space
+; R1 has sum
+; R2 has edge length
+
+; 1-2 sum vs edge 3
+MR2 ADDRESS_SUM_1
+MEMR
+MR2 EDGE_3
+JL NOT_A_TRIANGLE
+JE NOT_A_TRIANGLE
+
+; 2-3 sum vs edge 1
+MR2 ADDRESS_SUM_2
+MEMR
+MR2 EDGE_1
+JL NOT_A_TRIANGLE
+JE NOT_A_TRIANGLE
+
+; 1-3 sum vs edge 2
+MR2 ADDRESS_SUM_3
+MEMR
+MR2 EDGE_2
+JL NOT_A_TRIANGLE
+JE NOT_A_TRIANGLE
+
+; If the program made it here with no jumps to NOT_A_TRIANGLE,
+; then congrats! The triangle is a valid Euclidian triangle!
+VALID_TRIANGLE:
+MR1 2
+WRITE
+HALT
+
+; If at any point during the program, if a jump is made here,
+; the edge lengths do not make a valid triangle.
+NOT_A_TRIANGLE:
+MR1 1
+WRITE
+HALT

@@ -1,17 +1,32 @@
+; = = = = = = = = =
 ; DIVISION.AO
+; = = = = = = = = =
 ; Author: arda-guler
-;
-; Dividing 100 by 15, saving the quotient and the remainder on memory
+; = = = = = = = = =
+; Dividing the given dividend by the given divisor, saving the quotient and the remainder on memory
 ; Also displays quotient on display register (register 5)
+; = = = = = = = = =
+; INPUTS:
+
+#DIVIDEND=100
+#DIVISOR=15
+; = = = = = = = = =
+; OUTPUTS:
+; Saves quotient and remainer on memory locations ADR_COUNTER and ADR_REMAINDER
+; Also displays quotient on display register, Register 5.
+
+#ADR_COUNTER=2000
+#ADR_REMAINDER=2001
+; = = = = = = = = =
 
 ; Initialize the counter variable at address 2000
-MR1 1
-MR2 2000
+MR1 0
+MR2 ADR_COUNTER
 MEMW
 
 ; load the dividend and divisor
-MR1 100
-MR2 15
+MR1 DIVIDEND
+MR2 DIVISOR
 
 loop:
 ; subtract divisor
@@ -21,40 +36,39 @@ SUB
 WRITE
 
 ; increase counter
-MR2 2000
+MR2 ADR_COUNTER
 MEMR
 MR2 1
 ADD
-MR2 2000
+MR2 ADR_COUNTER
 MEMW
 
 ; get dividend into R1 again to continue
 RECALL
 
 ; if dividend is still larger than divisor, loop
-MR2 15
+MR2 DIVISOR
 JG loop
 
-; if the int is divisible exactly, we need to increment the counter one more before halting (26)
+; if the int is divisible exactly, we need to increment the counter one more before halting
 JL save_result
 WRITE
-MR2 2000
+MR2 ADR_COUNTER
 MEMR
 MR2 1
 ADD
-MR2 2000
+MR2 ADR_COUNTER
 MEMW
 RECALL
-MR2 15
+MR2 DIVISOR
 SUB
 
 save_result:
-; save remainder at address 2001
-MR2 2001
+MR2 ADR_REMAINDER
 MEMW
 
 ; display result
-MR2 2000
+MR2 ADR_COUNTER
 MEMR
 WRITE
 HALT

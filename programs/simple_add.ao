@@ -1,10 +1,21 @@
+; = = = = = = = = =
 ; SIMPLE_ADD.AO
+; = = = = = = = = =
 ; Author: arda-guler
-;
+; = = = = = = = = =
 ; A simple adding operation.
+; = = = = = = = = =
+; INPUTS:
 
-MR1 15
-MR2 22
+#NUM_1=15
+#NUM_2=22
+; = = = = = = = = =
+; OUTPUTS:
+; The result will be displayed in display register, Register 5.
+; = = = = = = = = =
+
+MR1 NUM_1
+MR2 NUM_2
 ADD
 WRITE
 HALT

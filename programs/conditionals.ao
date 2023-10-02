@@ -1,16 +1,25 @@
+; = = = = = = = = =
 ; CONDITIONALS.AO
+; = = = = = = = = =
 ; Author: arda-guler
-;
-; This is a simple counter that counts up to 200
+; = = = = = = = = =
+; This is a simple counter that counts up to the given value
 ; Uses the JL (jump if less than) instruction
+; = = = = = = = = =
+; INPUTS:
 
-MR1 200
+#TARGET=200
+; = = = = = = = = =
+; OUTPUTS: NONE
+; = = = = = = = = =
+
+MR1 TARGET
 MR1 NULL
 
 loop:
 MR2 1
 ADD
-MR2 200
+MR2 TARGET
 JL loop
 WRITE
 HALT

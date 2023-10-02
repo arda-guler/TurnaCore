@@ -41,7 +41,7 @@ class Memory:
             return
         
         else:
-            padding = address - len(self.data) + 1
+            padding = address - len(self.data)# + 1
             for i in range(padding):
                 self.data.append(NULL)
 

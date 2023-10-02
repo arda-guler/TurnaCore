@@ -9,6 +9,20 @@
 ; Assumes constant time step of 1. (So I don't need to keep
 ; calling the multiplication function every loop.)
 ; = = = = = = = = = = = = = = =
+; INPUTS:
+
+#INIT_POS=3000
+
+; this is actually velocity + 100
+; since there are no negative numbers
+; we will use 100 as our zero point.
+#INIT_VEL=150
+#DECEL_RATE=10
+; = = = = = = = = =
+; OUTPUTS:
+; Final position on display register, Register 5.
+; Also saves it on memory address 2.
+; = = = = = = = = =
 
 JMP start
 
@@ -16,16 +30,13 @@ JMP start
 ; VARIABLES
 ; - - - - - - - - - -
 ; address 2 - position
-3000
+INIT_POS
 
 load_vel_into_r2:
 MR2
 
-; this is actually velocity + 100
-; since there are no negative numbers
-; we will use 100 as our zero point
 ; address 4 - velocity
-150
+INIT_VEL
 JMP return_update_pos
 
 ; - - - - - - - - - -
