@@ -50,8 +50,7 @@ MR2 4
 MEMR
 
 ; now, load decel rate into R2
-; which is 10
-MR2 10
+MR2 DECEL_RATE
 
 ; update the value of velocity
 SUB
