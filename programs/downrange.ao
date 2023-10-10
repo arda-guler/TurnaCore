@@ -1,0 +1,161 @@
+; = = = = = = = = = = = = = = =
+; DOWNRANGE.AO
+; = = = = = = = = = = = = = = =
+; Author: arda-guler
+; = = = = = = = = = = = = = = =
+; Given initial vertical and horizontal velocity,
+; finds how far downrange a projectile will reach 
+; the climax of its trajectory.
+;
+; X axis is the horizontal axis.
+; Y axis is the vertical axis.
+; = = = = = = = = = = = = = = =
+; INPUTS:
+
+; The initial velocities
+#V_X=120
+#V_Y=50
+
+; The gravitational acceleration
+#GRAV_ACCEL=10
+; = = = = = = = = =
+; OUTPUTS:
+;
+; Downrange distance at which the projectile reaches the climax
+; of its trajectory, in Register 5, the display register.
+; = = = = = = = = =
+
+; First, compute the time it will take for the projectile
+; to reach the climax
+;
+; t = v_y / g
+; ADR_COUNTER = V_Y / GRAV_ACCEL
+
+; = = = SUBROUTINE: DIVISION = = =
+; 
+; SEE DIVISION.AO
+;
+; Takes dividend and divisor
+;
+; Saves quotient and remainer on memory locations ADR_COUNTER and ADR_REMAINDER
+; Also displays quotient on display register, Register 5.
+; = = = - - - = = =
+
+#ADR_COUNTER=2000
+#ADR_REMAINDER=2001
+
+; Initialize the counter variable in memory
+MR1 0
+MR2 ADR_COUNTER
+MEMW
+
+; load the dividend and divisor
+MR1 V_Y
+MR2 GRAV_ACCEL
+
+loop_division:
+; subtract divisor
+SUB
+
+; save subtracted dividend in R5
+WRITE
+
+; increase counter
+MR2 ADR_COUNTER
+MEMR
+MR2 1
+ADD
+MR2 ADR_COUNTER
+MEMW
+
+; get dividend into R1 again to continue
+RECALL
+
+; if dividend is still larger than divisor, loop
+MR2 GRAV_ACCEL
+JG loop_division
+
+; if the int is divisible exactly, we need to increment the counter one more before halting
+JL save_result
+WRITE
+MR2 ADR_COUNTER
+MEMR
+MR2 1
+ADD
+MR2 ADR_COUNTER
+MEMW
+RECALL
+MR2 GRAV_ACCEL
+SUB
+
+save_result:
+MR2 ADR_REMAINDER
+MEMW
+
+; display result
+MR2 ADR_COUNTER
+MEMR
+WRITE
+
+; = = = END DIVISION SUBROUTINE = = =
+
+; Now the half-flight time is stored in ADR_COUNTER
+; and also Registers 1 and 5.
+; (We will ignore the remainder for the sake of simplicity
+; and just take the quotient as the result of the division.)
+
+; Next step is to multiply the horizontal velocity with half-time
+; to get the half downrange distance of the ballistic trajectory,
+; which will give us the downrange distance at which the
+; climax is reached.
+
+; = = = SUBROUTINE: MULTIPLICATION = = =
+; 
+; SEE MULTIPLICATION.AO
+;
+; Takes variables to multiply
+; Stores result in Registers 1 and 5
+
+#ADR_VAR=2010
+
+; Initialize a loop counter using register 5
+MR2 ADR_COUNTER
+MEMR
+MR2 1
+ADD
+WRITE
+
+; Initialize a variable
+MR1 NULL
+MR2 ADR_VAR
+MEMW
+
+loop_multiplication:
+; read value from memory
+MR2 ADR_VAR
+MEMR
+; add V_X
+MR2 V_X
+ADD
+; save updated value to memory
+MR2 ADR_VAR
+MEMW
+; decrease counter
+RECALL
+MR2 1
+SUB
+WRITE
+MR2 1
+JG loop_multiplication
+
+; write result to register 5
+MR2 ADR_VAR
+MEMR
+WRITE
+; = = = END MULTIPLICATION SUBROUTINE = = =
+
+; Now, the result should be in the display register.
+
+; Halt the program. The climax downrange distance
+; is on display register, Register 5.
+HALT
