@@ -62,6 +62,16 @@ is equivalent to
 	= = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = 
 	MR1 0
 	= = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =
+	
+To copy the values of registers between one another, special words must be utilized. The destination register should
+be set by using MR#, then the source register should be specified by using the RP# keyword where # is the register number.
+However, as only Register 1 and Register 2 have dedicated modify modes, only these two registers can be destination
+registers, whereas any of the five registers can be source registers.
+
+	= = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = 
+	; This program copies the value of Register 4 to Register 1
+	MR1 RP4
+	= = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =
 
 As you modify a file that includes any of the jump instructions (JMP, JL, JG etc.), you may want to use labels
 so that you won't have to count the number of statements by yourself. A label can be defined by putting (:) after

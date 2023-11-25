@@ -1,0 +1,92 @@
+; = = = = = = = = =
+; CUMULATIVE_SUM.AO
+; = = = = = = = = =
+; Author: arda-guler
+; = = = = = = = = =
+; This program sums an array of numbers, or a portion of the array.
+; The number of elements from the beginning to be summed can
+; be adjusted with the NUM_ELEMENTS constant.
+; = = = = = = = = =
+; INPUTS: 
+
+; The number of elements in the array - 1
+#NUM_ELEMENTS=29
+
+; The array of numbers
+0
+1
+2
+4
+5
+6
+8
+4
+2
+1
+0
+0
+0
+1
+200
+15
+13
+12
+11
+11
+12
+11
+10
+0
+8
+0
+0
+1
+0
+150
+
+; = = = = = = = = =
+; OUTPUTS:
+; The result of the cumulative sum in Register 5, the display register.
+; = = = = = = = = =
+
+#ADR_SUM=2000
+MR2 ADR_SUM
+MR1 NULL
+MEMW
+
+#ADR_DONE=3000
+MR2 ADR_DONE
+MR1 NULL
+MEMW
+
+loop:
+
+; check if we are done with the array
+MR2 ADR_DONE
+MEMR
+MR2 NUM_ELEMENTS
+JE halt
+
+; if not, increment counter by one and save into memory
+MR2 1
+ADD
+MR2 ADR_DONE
+MEMW
+
+; load next number to add to summation
+MR2 RP1
+MEMR
+
+; get the number to be added into R2
+MR2 RP1 
+
+; get the value of sum so far
+RECALL 
+
+; add the two and save back to Register 5
+ADD
+WRITE
+JMP loop
+
+halt:
+HALT

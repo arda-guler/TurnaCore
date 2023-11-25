@@ -21,7 +21,12 @@ def init_CPU():
                         "recall": cpu_recall,
                         "memwrite": cpu_memwrite,
                         "memread": cpu_memread,
-                        "halt": cpu_halt}
+                        "halt": cpu_halt,
+                        "rp1": rp1,
+                        "rp2": rp2,
+                        "rp3": rp3,
+                        "rp4": rp4,
+                        "rp5": rp5}
 
     reg1 = Register(NULL)
     reg2 = Register(NULL)
@@ -117,6 +122,16 @@ def main():
                         mtext = str(mem.data[int(mempos) - i]) + " (MEMR)"
                     elif mem.data[int(mempos) - i] == cpu_halt:
                         mtext = str(mem.data[int(mempos) - i]) + " (HALT)"
+                    elif mem.data[int(mempos) - i] == rp1:
+                        mtext = str(mem.data[int(mempos) - i]) + " (RP_1)"
+                    elif mem.data[int(mempos) - i] == rp2:
+                        mtext = str(mem.data[int(mempos) - i]) + " (RP_2)"
+                    elif mem.data[int(mempos) - i] == rp3:
+                        mtext = str(mem.data[int(mempos) - i]) + " (RP_3)"
+                    elif mem.data[int(mempos) - i] == rp4:
+                        mtext = str(mem.data[int(mempos) - i]) + " (RP_4)"
+                    elif mem.data[int(mempos) - i] == rp5:
+                        mtext = str(mem.data[int(mempos) - i]) + " (RP_5)"
                     else:
                         mtext = str(mem.data[int(mempos) - i]) + " (" + str(int(mem.data[int(mempos) - i])) + ")"
                 else:
@@ -155,6 +170,16 @@ def main():
                         mtext = str(mem.data[int(mempos) + i]) + " (MEMR)"
                     elif mem.data[int(mempos) + i] == cpu_halt:
                         mtext = str(mem.data[int(mempos) + i]) + " (HALT)"
+                    elif mem.data[int(mempos) - i] == rp1:
+                        mtext = str(mem.data[int(mempos) - i]) + " (RP_1)"
+                    elif mem.data[int(mempos) - i] == rp2:
+                        mtext = str(mem.data[int(mempos) - i]) + " (RP_2)"
+                    elif mem.data[int(mempos) - i] == rp3:
+                        mtext = str(mem.data[int(mempos) - i]) + " (RP_3)"
+                    elif mem.data[int(mempos) - i] == rp4:
+                        mtext = str(mem.data[int(mempos) - i]) + " (RP_4)"
+                    elif mem.data[int(mempos) - i] == rp5:
+                        mtext = str(mem.data[int(mempos) - i]) + " (RP_5)"
                     else:
                         mtext = str(mem.data[int(mempos) + i]) + " (" + str(int(mem.data[int(mempos) + i])) + ")"
                 else:

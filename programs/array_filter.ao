@@ -7,7 +7,7 @@
 ; the given range are nullified.
 ; = = = = = = = = = = = = = = =
 ; INPUTS:
-; A 0-terminated array of data below: 
+; A NULL-terminated array of data below: 
 
 10
 15
@@ -22,7 +22,7 @@
 16
 66
 43
-0
+NULL
 
 ; The limits are defined below:
 

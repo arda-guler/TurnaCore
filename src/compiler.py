@@ -64,6 +64,16 @@ def compile_program(input_file, output_file="output.cis"):
             outlines.append(str(int(cpu_memread)))
         elif line.lower() == "halt":
             outlines.append(str(int(cpu_halt)))
+        elif line.lower() == "rp1":
+            outlines.append(str(int(rp1)))
+        elif line.lower() == "rp2":
+            outlines.append(str(int(rp2)))
+        elif line.lower() == "rp3":
+            outlines.append(str(int(rp3)))
+        elif line.lower() == "rp4":
+            outlines.append(str(int(rp4)))
+        elif line.lower() == "rp5":
+            outlines.append(str(int(rp5)))
         elif line.lower() == "null":
             outlines.append("0")
         elif line.endswith(":"):

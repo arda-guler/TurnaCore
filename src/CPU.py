@@ -101,6 +101,36 @@ class CPU:
         elif instruction == self.instructions["halt"]:
             self.run = False
 
+        elif instruction == self.instructions["rp1"]:
+            if self.registers[2].get_value() == Binary(1):
+                self.registers[0].set_value(self.registers[0].get_value())
+            elif self.registers[2].get_value() == Binary(2):
+                self.registers[1].set_value(self.registers[0].get_value())
+
+        elif instruction == self.instructions["rp2"]:
+            if self.registers[2].get_value() == Binary(1):
+                self.registers[0].set_value(self.registers[1].get_value())
+            elif self.registers[2].get_value() == Binary(2):
+                self.registers[1].set_value(self.registers[1].get_value())
+
+        elif instruction == self.instructions["rp3"]:
+            if self.registers[2].get_value() == Binary(1):
+                self.registers[0].set_value(self.registers[2].get_value())
+            elif self.registers[2].get_value() == Binary(2):
+                self.registers[1].set_value(self.registers[2].get_value())
+
+        elif instruction == self.instructions["rp4"]:
+            if self.registers[2].get_value() == Binary(1):
+                self.registers[0].set_value(self.registers[3].get_value())
+            elif self.registers[2].get_value() == Binary(2):
+                self.registers[1].set_value(self.registers[3].get_value())
+
+        elif instruction == self.instructions["rp5"]:
+            if self.registers[2].get_value() == Binary(1):
+                self.registers[0].set_value(self.registers[4].get_value())
+            elif self.registers[2].get_value() == Binary(2):
+                self.registers[1].set_value(self.registers[4].get_value())
+
         else:
             self.assign(instruction)
 

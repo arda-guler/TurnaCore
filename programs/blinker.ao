@@ -1,0 +1,25 @@
+; = = = = = = = = =
+; BLINKER.AO
+; = = = = = = = = =
+; Author: arda-guler
+; = = = = = = = = =
+; The value on display register is altered between 0 and 1.
+; = = = = = = = = =
+; INPUTS: NONE
+; = = = = = = = = =
+; OUTPUTS: NONE
+; = = = = = = = = =
+
+start:
+RECALL
+MR2 1
+JE set_zero
+
+MR1 1
+WRITE
+JMP start
+
+set_zero:
+MR1 NULL
+WRITE
+JMP start
