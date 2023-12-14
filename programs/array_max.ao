@@ -1,0 +1,104 @@
+; = = = = = = = = = = = = = = =
+; ARRAY_MAX.AO
+; = = = = = = = = = = = = = = =
+; Author: arda-guler
+; = = = = = = = = = = = = = = =
+; Finds the maximum value of an 
+; array of numbers.
+; = = = = = = = = = = = = = = =
+; INPUTS:
+; A NULL-terminated array of data below: 
+
+10
+15
+24
+37
+95
+36
+34
+75
+22
+59
+16
+66
+43
+NULL
+
+; The memory location where the max. will
+; be written:
+#ADR_MAX=3000
+
+; = = = = = = = = = = = = = = =
+; OUTPUTS:
+; The maximum value in the array is written to the
+; display register (R5).
+; The maximum value in the array is also written
+; to address ADR_MAX
+; = = = = = = = = = = = = = = =
+
+#ADR_COUNTER=2000
+
+start:
+; initalize the max. value variable
+MR2 ADR_MAX
+MR1 0
+MEMW
+
+; initialize the array data pointer
+MR2 ADR_COUNTER
+MR1 0
+MEMW
+
+loop:
+; read the pointed element
+MR2 ADR_COUNTER
+MEMR
+
+MR2 RP1
+MEMR
+
+; check if the NULL terminator is reached,
+; halt the program if so
+MR2 NULL
+JE end
+
+; save the current value in temporary storage (R5)
+WRITE
+
+; read the current maximum
+MR2 ADR_MAX
+MEMR
+
+; get the current value into R2 for comparison
+MR2 RP5
+
+; if the current max is less than current read value,
+; modify the current max.
+JL new_max
+
+; else, prepare to read the next value
+; update the counter
+MR2 ADR_COUNTER
+MEMR
+MR2 1
+ADD
+MR2 ADR_COUNTER
+MEMW
+JMP loop
+
+new_max:
+; copy the new max value into R1
+MR1 RP2
+
+; write new value to current max.
+MR2 ADR_MAX
+MEMW
+
+; keep going
+JMP loop
+
+end:
+MR2 ADR_MAX
+MEMR
+WRITE
+HALT

@@ -1,0 +1,63 @@
+; = = = = = = = = =
+; EVEN_ODD.AO
+; = = = = = = = = =
+; Author: arda-guler
+; = = = = = = = = =
+; Finds whether the given number is even or odd.
+; = = = = = = = = =
+; INPUTS:
+;
+#INPUT_NUM=81
+; = = = = = = = = =
+; OUTPUTS:
+;
+; Writes 1 on display register (R5) if it is odd.
+; Writes 2 on display register (R5) if it is even.
+; = = = = = = = = =
+#ADR_NUM=2000
+
+; save number on memory somewhere
+MR1 INPUT_NUM
+MR2 ADR_NUM
+MEMW
+
+loop:
+; load the number from memory
+MR2 ADR_NUM
+MEMR
+
+; check if the mod2 of the input 
+; has been found
+MR2 2
+JL check_final
+
+; the mod2 of the input has not been acquired yet
+; subtract two from it again
+SUB
+
+; save the modified number back to memory
+MR2 ADR_NUM
+MEMW
+
+JMP loop
+
+; the number is less than 2
+; check whether the mod2 is 1 or not
+; (in which case it is 0)
+check_final:
+MR2 1
+JE is_odd
+
+; mod2 was zero
+; write the result and halt
+is_even:
+MR1 2
+WRITE
+HALT
+
+; mod2 was one
+; write the result and halt
+is_odd:
+MR1 1
+WRITE
+HALT
